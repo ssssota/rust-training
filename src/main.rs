@@ -1,4 +1,4 @@
-use font_kit::{handle::Handle, sources::fs::FsSource};
+use font_kit::{handle::Handle, source::SystemSource};
 
 fn main() {
     println!("Hello, world!");
@@ -15,7 +15,7 @@ fn main() {
 }
 
 fn get_fonts() -> Vec<Handle> {
-    FsSource::new()
+    SystemSource::new()
         .all_fonts()
         .unwrap()
 }
