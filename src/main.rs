@@ -1,21 +1,19 @@
-use font_kit::{handle::Handle, source::SystemSource};
+use std::collections::HashSet;
+use font_kit::{handle, source::SystemSource};
 
 fn main() {
-    println!("Hello, world!");
+    let handles = SystemSource::new().all_fonts().unwrap();
+    let uniqlist: HashSet<&str> = handles
+        .iter()
+        .map(|handle| match handle {
+            handle::Handle::Path { path, .. } => path.to_str(),
+            _ => None,
+        })
+        .filter(|path| path.is_some())
+        .map(|path| path.unwrap())
+        .collect();
 
-    let fonts = get_fonts();
-    let size = fonts.len();
-    println!("size: {}", size);
-    for (_i, font) in fonts.iter().enumerate() {
-        match font {
-            Handle::Path { path, font_index } => println!("{}, {:?}", font_index, path.to_str()),
-            Handle::Memory { .. } => {}
-        }
+    for (i, pathname) in uniqlist.iter().enumerate() {
+        println!("{}: {}", i, pathname);
     }
-}
-
-fn get_fonts() -> Vec<Handle> {
-    SystemSource::new()
-        .all_fonts()
-        .unwrap()
 }
