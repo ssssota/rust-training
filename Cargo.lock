@@ -344,6 +344,7 @@ dependencies = [
 name = "rust-training"
 version = "0.1.0"
 dependencies = [
+ "core-text",
  "font-kit",
 ]
 

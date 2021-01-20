@@ -1,19 +1,15 @@
-use std::collections::HashSet;
-use font_kit::{handle, source::SystemSource};
+#[cfg(target_os = "macos")]
+mod mac;
+#[cfg(target_os = "macos")]
+use mac::Sys;
+
+#[cfg(not(target_os = "macos"))]
+mod notmac;
+#[cfg(not(target_os = "macos"))]
+use notmac::Sys;
 
 fn main() {
-    let handles = SystemSource::new().all_fonts().unwrap();
-    let uniqlist: HashSet<&str> = handles
-        .iter()
-        .map(|handle| match handle {
-            handle::Handle::Path { path, .. } => path.to_str(),
-            _ => None,
-        })
-        .filter(|path| path.is_some())
-        .map(|path| path.unwrap())
-        .collect();
-
-    for (i, pathname) in uniqlist.iter().enumerate() {
-        println!("{}: {}", i, pathname);
+    for _ in 0..3 {
+        Sys::get_all();
     }
 }
