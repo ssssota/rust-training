@@ -7,8 +7,8 @@ impl Sys {
             descriptors.iter()
                 .map(|descriptor| descriptor.font_path())
                 .filter(|path| path.is_some())
-                .map(|path| path?.to_str())
-                .for_each(|path| println!("{}", path.unwrap()));
+                .map(|path| path.unwrap().to_str())
+                .for_each(|path| println!("{}", path));
         }
     }
 }
