@@ -9,7 +9,7 @@ mod notmac;
 use notmac::Sys;
 
 fn main() {
-    for _ in 0..3 {
+    for _ in 0..5 {
         Sys::get_all();
     }
 }
