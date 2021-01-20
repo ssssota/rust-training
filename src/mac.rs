@@ -5,10 +5,11 @@ impl Sys {
     pub fn get_all() {
         if let Some(descriptors) = create_for_all_families().get_descriptors() {
             descriptors.iter()
-                .map(|descriptor| descriptor.font_path())
-                .filter(|path| path.is_some())
-                .map(|path| path.unwrap().to_str())
-                .for_each(|path| println!("{}", path.unwrap()));
+                .map(|d| println!("{}", d
+                        .font_path()
+                        .unwrap()
+                        .to_str()
+                        .unwrap()))
         }
     }
 }
